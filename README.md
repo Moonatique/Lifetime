@@ -27,7 +27,7 @@ Project in answer to an architecture exercice (subject - analyse and argumentati
 ## TODO
 
 1. <s> Create Github project</s>
-2. Write analyse & argumentation of the subject
+2. <s> Write analyse & argumentation of the subject</s>
 3. Implement a POC
 4. Tests
 
