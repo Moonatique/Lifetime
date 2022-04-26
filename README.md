@@ -70,44 +70,81 @@ Domain Specific Language for templating liveview component. Improve joy of front
 
 I propose a new application which can be feed by data through a web frontend and webservices.
 Fullstack application is chosen because I don't know the nature of others application.
-Anticipate the fact than other applications could feed without passing by the frontend, a webservice anwser to this need. 
+Anticipate the fact than other applications could feed without passing by the frontend, webservices to create patient and transmission anwser to this need. 
 
 ### Domain
 
-The application is mainly a represatation of medical data of patient along his life. We can chose and type the data we need to know to apply different process and visualization. At the end we can have roles who can have a different view of a patient.
+The application is mainly a representation of medical data of patient along his life. We can chose and type the data we need to know to apply different process and visualization. At the end we can have roles who can have a different view of a patient.
 A piece of this data will be a **transmission**.
+Each transmission type correspond to information which can have different access (read, create, update and delete) depending of the role.
+
+I've chosen to use only one structure to handle differente type of transmission : 
+- First because that I design for each different type is very similar
+- We can add and extend the transmission without changing all process logic
+
+I've chosen 4 types of transmission based on what I know about medical needs
+
+- ***Particularity*** : It represents an health or mental fact which can be a white list of identify particularity (weight, size, sickness, insuline, ...). Here we keep all historic data. So we can have differente transmissions of **size** but with different **date**. We will display the one with the closest date of the current search.
+- ***Treatments*** : It represent a medical treatment with medicaments as data and start & end date. We can display all active treatments or search for former treatments wich can inpact current state of the patient.
+- ***Event*** : It reprensent an event for the patient which is taking in charge by the medical staff. With at list a start date we can easely know what are events past, current or coming.
+- ***Question*** : It reprensent a question from the patient or from the staff with data as anwser. 
+
+For each transmission we allow a statue which is important for *Event* by example. We also allow to restrict transmission to a certain role, in case some information are really senseible even we will see business rules taking care of confidentiality.
+
+I also add a tags field to the transmission in case of search on metadata, by anticipation.
 
 Here the structure of each table : 
 
 **USER**
-- id : id
-- email : string
-- pass : string
-- role : ROLE [patient, doctor, medical, admin]
+> - id : id
+> - email : string
+> - pass : string
+> - role : ROLE [patient, doctor, medical, admin]
 
 **PATIENT**
-- id : id
-- numSS : string
-- lastname : string
-- firstname : string
-- birthdate : date
-- blood_group : string
-- transmissions : [TRANSMISSION]
+> - id : id
+> - user_id : id
+> - numSS : string
+> - lastname : string
+> - firstname : string
+> - birthdate : date
+> - blood_group : string
+> - transmissions : [TRANSMISSION]
 
 **TRANSMISSION**
-- id : id
-- patient_id : id
-- type : TYPE [particularity, treatment, event, question]
-- description : string
-- statue : STATUE [todo, inprogress, done, reported, canceled]
-- start_date : date
-- end_date : date
-- data : [string]
-- from : USER
-- tags : [string]
-- restrictions : [ROLE]
+> - id : id
+> - patient_id : id
+> - type : TYPE [particularity, treatment, event, question]
+> - description : string
+> - statue : STATUE [todo, inprogress, done, reported, canceled]
+> - start_date : date
+> - end_date : date
+> - data : [string]
+> - from : USER
+> - tags : [string]
+> - restrictions : [ROLE]
 
 ### Business Rules
+
+***! Warning !*** Business rules may need to be review with product owner, they are here as example.
+
+#### Roles
+
+- Patient :       read (ALL - dotors notes) / create (only type "question")         / update (only type "question")         / remove (NONE)
+- Doctor :        read (ALL)                / create (ALL)                          / update (ALL)                          / remove (NONE)
+- Medical staff : read (ALL - dotors notes) / create (only type "event & question") / update (only type "event & question") / remove (NONE)
+- Admin :         read (ALL)                / create (ALL)                          / update (ALL)                          / remove (ALL)
+
+#### Types
+
+- Particularity : If we have same particularity in different transmission then we display the yougest one base on "start_date"
+- Treatment     : Display only active treatments with current date between start and end date or without "end_date". We can check statue too.
+- Event         : Display last 5 events and coming events
+
+#### Restrictions : 
+
+We can add roles to restriction area to restrict transmission for doctors only by example bypassing role assignation to certain type.
+Admin will overrule this because to technical or special search, he needs to access all data.
 
 ## Implementation (POC)
 
