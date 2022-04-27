@@ -1,0 +1,5 @@
+<h1>Edit Transmission</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.transmission_path(@conn, :update, @transmission)) %>
+
+<span><%= link "Back", to: Routes.transmission_path(@conn, :index) %></span>

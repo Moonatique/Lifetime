@@ -1,0 +1,46 @@
+<h1>Show Patient</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.patient_show_path(@socket, :show, @patient)}>
+    <.live_component
+      module={LifetimeWeb.PatientLive.FormComponent}
+      id={@patient.id}
+      title={@page_title}
+      action={@live_action}
+      patient={@patient}
+      return_to={Routes.patient_show_path(@socket, :show, @patient)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Numss:</strong>
+    <%= @patient.numSS %>
+  </li>
+
+  <li>
+    <strong>Lastname:</strong>
+    <%= @patient.lastname %>
+  </li>
+
+  <li>
+    <strong>Firstname:</strong>
+    <%= @patient.firstname %>
+  </li>
+
+  <li>
+    <strong>Birthdate:</strong>
+    <%= @patient.birthdate %>
+  </li>
+
+  <li>
+    <strong>Blood group:</strong>
+    <%= @patient.blood_group %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.patient_show_path(@socket, :edit, @patient), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.patient_index_path(@socket, :index) %></span>
