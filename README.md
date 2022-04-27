@@ -148,6 +148,17 @@ Admin will overrule this because to technical or special search, he needs to acc
 
 ## Implementation (POC)
 
+### Start application
+
+> git clone https://github.com/Moonatique/Lifetime.git
+> cd Lifetime
+> mix deps.get
+> mix ecto.migrate
+> mix phx.server
+> open browser localhost:4000
+
+### Objectifs
+
 I would like to prof some mechanisme :
 - Connect Patient and Transmission
 - Handle 2 different types of transmission
@@ -158,11 +169,11 @@ I would like to prof some mechanisme :
 
 #### Creation of models by generation
 
-*** TRANSMISSION ***
+*TRANSMISSION*
 
 mix phx.gen.html Medical Transmission transmissions type:enum:particularity:treatment:event:question description statue:enum:todo:inprogress:done:reported:canceled start_date:date end_date:date data:array:string patient_id:references:patients
 
-*** PATIENT ***
+*PATIENT*
 
 mix phx.gen.live Medical Patient patients user_id:references:users numSS lastname firstname birthdate:date blood_group:enum:A+:A-:B+:B-:O+:O-:AB+:AB- transmissions:references:transmissions
 
