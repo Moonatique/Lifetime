@@ -52,6 +52,15 @@ defmodule LifetimeWeb do
     end
   end
 
+  def live_surface do
+    quote do
+      use Surface.LiveView,
+        layout: {LifetimeWeb.LayoutView, "live.html"}
+
+      unquote(view_helpers())
+    end
+  end
+
   def live_component do
     quote do
       use Phoenix.LiveComponent

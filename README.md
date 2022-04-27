@@ -150,12 +150,12 @@ Admin will overrule this because to technical or special search, he needs to acc
 
 ### Start application
 
-> git clone https://github.com/Moonatique/Lifetime.git
-> cd Lifetime
-> mix deps.get
-> mix ecto.migrate
-> mix phx.server
-> open browser localhost:4000
+1. git clone https://github.com/Moonatique/Lifetime.git
+2. cd Lifetime
+3. mix deps.get
+4. mix ecto.migrate
+5. mix phx.server
+6. open browser localhost:4000
 
 ### Objectifs
 

@@ -1,5 +1,5 @@
 defmodule LifetimeWeb.PatientLive.Show do
-  use LifetimeWeb, :live_view
+  use LifetimeWeb, :live_surface
 
   alias Lifetime.Medical
 

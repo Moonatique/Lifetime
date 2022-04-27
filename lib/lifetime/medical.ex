@@ -131,7 +131,9 @@ defmodule Lifetime.Medical do
       ** (Ecto.NoResultsError)
 
   """
-  def get_patient!(id), do: Repo.get!(Patient, id)
+  def get_patient!(id) do
+    Repo.get!(Patient, id) |> Repo.preload(:transmissions)
+  end
 
   @doc """
   Creates a patient.
