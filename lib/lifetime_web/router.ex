@@ -20,9 +20,7 @@ defmodule LifetimeWeb.Router do
   scope "/", LifetimeWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-
-    resources "/transmissions", TransmissionController
+    live "/", PatientLive.Index, :index
 
     live "/patients", PatientLive.Index, :index
     live "/patients/new", PatientLive.Index, :new
@@ -30,6 +28,8 @@ defmodule LifetimeWeb.Router do
 
     live "/patients/:id", PatientLive.Show, :show
     live "/patients/:id/show/edit", PatientLive.Show, :edit
+
+    resources "/transmissions", TransmissionController
   end
 
   # Other scopes may use custom stacks.
