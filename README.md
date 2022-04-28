@@ -171,7 +171,7 @@ I would like to prof some mechanisme :
 
 *TRANSMISSION*
 
-mix phx.gen.html Medical Transmission transmissions type:enum:particularity:treatment:event:question description statue:enum:todo:inprogress:done:reported:canceled start_date:date end_date:date data:array:string patient_id:references:patients
+mix phx.live.html Medical Transmission transmissions type:enum:particularity:treatment:event:question description statue:enum:todo:inprogress:done:reported:canceled start_date:date end_date:date data:array:string patient_id:references:patients
 
 *PATIENT*
 

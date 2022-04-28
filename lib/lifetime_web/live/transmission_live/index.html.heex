@@ -1,0 +1,51 @@
+<h1>Listing Transmissions</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.patient_show_path(@socket, :show, @patient)}>
+    <.live_component
+      module={LifetimeWeb.TransmissionLive.FormComponent}
+      id={@transmission.id || :new}
+      title={@page_title}
+      action={@live_action}
+      transmission={@transmission}
+      return_to={Routes.patient_show_path(@socket, :show, @patient)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Statue</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Data</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="transmissions">
+    <%= for transmission <- @transmissions do %>
+      <tr id={"transmission-#{transmission.id}"}>
+        <td><%= transmission.type %></td>
+        <td><%= transmission.description %></td>
+        <td><%= transmission.statue %></td>
+        <td><%= transmission.start_date %></td>
+        <td><%= transmission.end_date %></td>
+        <td><%= transmission.data %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.transmission_show_path(@socket, :show, transmission) %></span>
+          <span><%= live_patch "Edit", to: Routes.transmission_index_path(@socket, :edit, transmission) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: transmission.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%#
+ <span><%= live_patch "New Transmission", to: Routes.transmission_index_path(@socket, :new)</span> 
+%>

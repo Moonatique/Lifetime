@@ -29,7 +29,13 @@ defmodule LifetimeWeb.Router do
     live "/patients/:id", PatientLive.Show, :show
     live "/patients/:id/show/edit", PatientLive.Show, :edit
 
-    resources "/transmissions", TransmissionController
+    live "/patients/:id/edit/transmissions/new", TransmissionLive.Index, :new
+    live "/transmissions/:id/edit", TransmissionLive.Index, :edit
+
+    live "/transmissions/:id", TransmissionLive.Show, :show
+    live "/transmissions/:id/show/edit", TransmissionLive.Show, :edit
+    # live "/transmissions", TransmissionLive.Index, :index
+
   end
 
   # Other scopes may use custom stacks.

@@ -40,15 +40,19 @@
     {@patient.blood_group}
   </li>
 
+  <ul>
+  <h2>Transmissions</h2>
   {#for transmission <- @patient.transmissions}
-    <li>
-      {transmission}
-    </li>
+    <div>
+      <h3>{transmission.type} : {transmission.description} : {transmission.statue}</h3>
+    </div>
   {#else}
     <li>No Transmissions</li>
   {/for}
+  </ul>
 
 </ul>
 
+<span>{live_patch "New Transmission", to: Routes.transmission_index_path(@socket, :new, @patient), class: "button"}</span>
 <span>{live_patch "Edit", to: Routes.patient_show_path(@socket, :edit, @patient), class: "button"}</span> |
 <span>{live_redirect "Back", to: Routes.patient_index_path(@socket, :index)}</span>

@@ -18,7 +18,7 @@ defmodule Lifetime.Medical.Transmission do
   @doc false
   def changeset(transmission, attrs) do
     transmission
-    |> cast(attrs, [:type, :description, :statue, :start_date, :end_date, :data])
+    |> cast(attrs, [:type, :description, :statue, :start_date, :end_date, :data, :patient_id])
     |> validate_required([:type, :description, :statue, :start_date, :end_date, :data])
   end
 end

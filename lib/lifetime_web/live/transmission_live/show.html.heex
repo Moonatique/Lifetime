@@ -1,0 +1,51 @@
+<h1>Show Transmission</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.transmission_show_path(@socket, :show, @transmission)}>
+    <.live_component
+      module={LifetimeWeb.TransmissionLive.FormComponent}
+      id={@transmission.id}
+      title={@page_title}
+      action={@live_action}
+      transmission={@transmission}
+      return_to={Routes.transmission_show_path(@socket, :show, @transmission)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @transmission.type %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @transmission.description %>
+  </li>
+
+  <li>
+    <strong>Statue:</strong>
+    <%= @transmission.statue %>
+  </li>
+
+  <li>
+    <strong>Start date:</strong>
+    <%= @transmission.start_date %>
+  </li>
+
+  <li>
+    <strong>End date:</strong>
+    <%= @transmission.end_date %>
+  </li>
+
+  <li>
+    <strong>Data:</strong>
+    <%= @transmission.data %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.transmission_show_path(@socket, :edit, @transmission), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.patient_index_path(@socket, :index) %></span>

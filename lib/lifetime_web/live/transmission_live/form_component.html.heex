@@ -1,0 +1,42 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <p><%= @patient.firstname %></p>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="transmission-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+  
+    <%= label f, :type %>
+    <%= select f, :type, Ecto.Enum.values(Lifetime.Medical.Transmission, :type), prompt: "Choose a value" %>
+    <%= error_tag f, :type %>
+  
+    <%= label f, :description %>
+    <%= text_input f, :description %>
+    <%= error_tag f, :description %>
+  
+    <%= label f, :statue %>
+    <%= select f, :statue, Ecto.Enum.values(Lifetime.Medical.Transmission, :statue), prompt: "Choose a value" %>
+    <%= error_tag f, :statue %>
+  
+    <%= label f, :start_date %>
+    <%= date_select f, :start_date %>
+    <%= error_tag f, :start_date %>
+  
+    <%= label f, :end_date %>
+    <%= date_select f, :end_date %>
+    <%= error_tag f, :end_date %>
+  
+    <%= label f, :data %>
+    <%= multiple_select f, :data, ["Option 1": "option1", "Option 2": "option2"] %>
+    <%= error_tag f, :data %>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>
