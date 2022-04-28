@@ -160,8 +160,8 @@ Admin will overrule this because to technical or special search, he needs to acc
 ### Objectifs
 
 I would like to prof some mechanisme :
-- Connect Patient and Transmission
-- Handle 2 different types of transmission
+- <s>Connect Patient and Transmission</s>
+- <s>Handle 2 different types of transmission</s>
 - Handle live update of the view
 - *(optional) Handle 2 roles (patient and admin)*
 - *(optional) Creation of transmission throught web service*
