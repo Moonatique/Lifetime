@@ -157,12 +157,18 @@ Admin will overrule this because to technical or special search, he needs to acc
 5. mix phx.server
 6. open browser localhost:4000
 
+### Use of the application
+
+- You can create some patient and edit them
+- You can create new transmission to a patient
+- **Warning : Click well on the button save when creating transmission**
+
 ### Objectifs
 
 I would like to prof some mechanisme :
 - <s>Connect Patient and Transmission</s>
 - <s>Handle 2 different types of transmission</s>
-- Handle live update of the view
+- <s>Handle live update of the view</s>
 - *(optional) Handle 2 roles (patient and admin)*
 - *(optional) Creation of transmission throught web service*
 

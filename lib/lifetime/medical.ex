@@ -53,6 +53,7 @@ defmodule Lifetime.Medical do
     %Transmission{}
     |> Transmission.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:transmission_created)
   end
 
   @doc """
@@ -71,6 +72,7 @@ defmodule Lifetime.Medical do
     transmission
     |> Transmission.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:transmission_updated)
   end
 
   @doc """
@@ -198,5 +200,15 @@ defmodule Lifetime.Medical do
   """
   def change_patient(%Patient{} = patient, attrs \\ %{}) do
     Patient.changeset(patient, attrs)
+  end
+
+  def subscribe do 
+    Phoenix.PubSub.subscribe(Lifetime.PubSub, "transmissions")
+  end
+
+  defp broadcast({:error, _reason} = error, _event), do: error
+  defp broadcast({:ok, transmission}, event) do
+    Phoenix.PubSub.broadcast(Lifetime.PubSub, "transmissions", {event, transmission})
+    {:ok, transmission}
   end
 end
